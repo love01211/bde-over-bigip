@@ -1,0 +1,26 @@
+diff --git a/conf.d/logstash/general.conf b/conf.d/logstash/general.conf
+index 168ab93..e98a4ca 100644
+--- a/conf.d/logstash/general.conf
++++ b/conf.d/logstash/general.conf
+@@ -42,7 +42,7 @@ filter {
+             "data", "<.*>(?<syslogtime>\w{3} \d{2} \d{2}:\d{2}:\d{2}) %{HOSTNAME:host} (?<log_level>\w+) (?<process_name>\w+)\[%{NUMBER:pid}\]: %{NUMBER:status_code}:.* Pool (?<pool_path>\S+) member (?<member_path>\S+) monitor status (?<monitor_status>(\w+)). \[ (?<monitor_name>\S+): .*; last error: (?<last_error>.*) \]  \[ was \w+ for (?<was_duration>.*) \]",
+             
+             # 2020-03-26 11:03:11.770163 (6597) [D]: Received DNS results for [www.bbb.com] family [1]
+-            "data", ".*%{SYSLOG_TIME:syslogtime}.\d+ \(%{NUMBER:pid}\) \[(?<log_level>\w)\]: Received DNS results for \[%{URL:dns_query}\] family \[(?<family>\w)\].*",
++            "data", ".*%{SYSLOG_TIME:syslogtime}.\d+ \(%{NUMBER:pid}\) \[(?<log_level>\w)\]: Received DNS results for \[%{URL:dns_query}\] family \[(?<family>\w+)\].*",
+             
+             # 2020-03-26 11:03:11.770192 (6597) [d]: (dns_resolved): address 192.168.20.251 TTL: 30
+             "data", ".*%{SYSLOG_TIME:syslogtime}.\d+ \(%{NUMBER:pid}\) \[(?<log_level>\w)\]: \(dns_resolved\): address %{IPV4:ip_addr} TTL: (?<ttl>\d+).*",
+@@ -71,9 +71,9 @@ filter {
+             "message",   # comment this line for debug when looking into the original message
+             "@version"
+         ]
+-        # add_field => {
+-        #     index => "${ES_INDEX}-%{+YYYY.MM.dd}"
+-        # }
++         add_field => {
++             stdout => "OK"
++         }
+     }
+ }
+ 

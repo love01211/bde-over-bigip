@@ -106,6 +106,7 @@ services:
       - 9600:9600
     volumes:
       - ${HOMEDIR}/conf.d/logstash/general.conf:/usr/share/logstash/pipeline/general/logstash.conf
+      - ${HOMEDIR}/conf.d/logstash/patterns_dir:/usr/share/logstash/patterns_dir
       - ${HOMEDIR}/conf.d/logstash/index-template/general-template.tmpl:/usr/share/logstash/general-template.tmpl
       - ${HOMEDIR}/conf.d/logstash/index-lifecycle/general-ilm:/usr/share/logstash/index-lifecycle/general-ilm
       - ${HOMEDIR}/conf.d/logstash.pipelines:/usr/share/logstash/config/pipelines.yml
